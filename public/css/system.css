@@ -1,0 +1,78 @@
+.poppins {
+    font-family: 'Poppins', sans-serif;
+}
+
+.montserrat {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.j-center {
+    justify-content: center;
+}
+
+#j-center {
+    justify-content: center;
+    /* addition */
+    transition: 0.45s;
+}
+
+.vh100 {
+    height: 100vh;
+}
+
+.ph100{
+    height: 100%;
+}
+
+.pw100{
+    width: 100%;
+}
+
+.rotate {
+    transition: transform 0.5s ease-in;
+}
+
+.animate {
+    visibility: visible;
+    opacity: 1;
+    transition: visibility 0.5s, opacity 0.5s, 0.35s linear;
+}
+
+.animate-normal {
+    transition: 0.35s;
+}
+
+.notif-warning, .notif-danger, .notif-success {
+    width: 100%;
+    height: max-content;
+    text-align: justify;
+    box-sizing: border-box;
+    border-radius: 4px;
+    padding: 6px 12px;
+    justify-content: normal;
+    gap: 10px;
+}
+
+.notif-warning {
+    background-color: rgba(249, 220, 92, 0.15);
+    border: 1px solid rgba(249, 220, 92, 1);
+}
+
+body {
+    margin: 0;
+    background-color: #FBFEFD;
+}

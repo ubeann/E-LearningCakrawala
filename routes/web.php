@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PagesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Pages Controller using for static website
+Route::get('/', [PagesController::class, 'home']);
+Route::get('/settings', [PagesController::class, 'settings']); // move in new controller
+Route::get('/kelas', [PagesController::class, 'kelas']); // move in new controller
+Route::get('/tugas', [PagesController::class, 'tugas']); // move in new controller
+Route::get('/mapel', [PagesController::class, 'mapel']); // move in new controller
+Route::get('/nilai', [PagesController::class, 'nilai']); // move in new controller
