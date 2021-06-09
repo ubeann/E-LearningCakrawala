@@ -27,20 +27,20 @@
                     <div class="formel" id="input-star">
                         <input required type="text" name="title" id="title" placeholder="Judul tugas">
                     </div>
+                    <div class="formel flex-row">
+                        <div class="formel" id="input-date">
+                            <input required type="text" onfocus="(this.type='datetime-local')" name="startDate" id="startDate" placeholder="Tanggal dibuka">
+                        </div>
+                        <div class="formel" id="input-date">
+                            <input required type="text" onfocus="(this.type='datetime-local')" name="endDate" id="endDate" placeholder="Tanggal ditutup">
+                        </div>
+                    </div>
                     <div class="formel" id="input-edit">
                         <textarea required name="description" id="description" placeholder="Deskripsi tugas" cols="30" rows="10"></textarea>
                     </div>
-                    <div class="formel flex-row">
-                        <div class="formel" id="input-date">
-                            <input required type="text" onfocus="(this.type='date')" name="startDate" id="startDate" placeholder="Tanggal dibuka">
-                        </div>
-                        <div class="formel" id="input-date">
-                            <input required type="text" onfocus="(this.type='date')" name="endDate" id="endDate" placeholder="Tanggal ditutup">
-                        </div>
-                    </div>
-                    <div class="formel" id="input-plus-square">
+                    <!-- <div class="formel" id="input-plus-square">
                         <input type="text" onfocus="(this.type='file')" name="file" id="file" placeholder="Upload files" multiple>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="formel small-btn-submit">
                     <button type="submit" class="poppins">Buat Tugas</button>

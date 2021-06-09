@@ -137,6 +137,7 @@
 .form-input input[type='date']:focus,
 .form-input input[type='month']:focus,
 .form-input input[type='file']:focus,
+.form-input input[type='datetime-local']:focus,
 .form-input input[type='password']:focus {
     /* design */
     border: 1px solid rgba(82, 183, 136, 1);
@@ -150,6 +151,7 @@
 .form-input input[type='date'],
 .form-input input[type='month'],
 .form-input input[type='file'],
+.form-input input[type='datetime-local'],
 .form-input input[type='password'] {
     /* size */
     width: 100%;

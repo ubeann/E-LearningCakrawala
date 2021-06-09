@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="{{asset('css/form.css')}}">
 @endsection
 
-@section('tugas', 'nav-active')
+@section('nilai', 'nav-active')
 
 @section('container')
     <div class="flex-column container vh100" id="container">

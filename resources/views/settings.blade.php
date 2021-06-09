@@ -8,7 +8,7 @@
 
 @section('settings', 'nav-active')
 
-{{-- @section('container')
+@section('container')
     <div class="flex-column container vh100" id="container">
         <div class="flex-row container-row">
             <form action="" method="POST" class="flex-column container-form">
@@ -63,8 +63,8 @@
             </div>
         </div>
     </div>
-@endsection --}}
-
+@endsection
+<!-- 
 @section('container')
     <div class="flex-column container vh100" id="container">
         <div class="flex-row container-row">
@@ -112,4 +112,4 @@
             </div>
         </div>
     </div>
-@endsection
+@endsection -->

@@ -17,8 +17,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name',
-        'email',
+        'username',
+        'status',
         'password',
     ];
 
@@ -32,12 +32,37 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    public function student() {
+        return $this->hasOne(Student::class);
+    }
+
+    // public function room() {
+    //     return $this->hasOneThrough(
+    //         Room::class,
+    //         Employee::class,
+    //         'nip',
+    //         'teacher_id',
+    //     );
+    // }
+
+    // public function lesson() {
+    //     return $this->hasManyThrough(
+    //         Room::class,
+    //         Employee::class,
+    //         'nip',
+    //         'teacher_id',
+    //     );
+    // }
+
+    public function employee() {
+        return $this->hasOne(Employee::class);
+    }
     /**
      * The attributes that should be cast to native types.
      *
      * @var array
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    // protected $casts = [
+    //     'email_verified_at' => 'datetime',
+    // ];
 }
