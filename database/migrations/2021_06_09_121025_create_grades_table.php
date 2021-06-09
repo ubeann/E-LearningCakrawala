@@ -15,7 +15,7 @@ class CreateGradesTable extends Migration
     {
         Schema::create('grades', function (Blueprint $table) {
             $table->unsignedBigInteger('lesson_id');
-            $table->integer('nis');
+            $table->string('nis');
             $table->double('assignment')->nullable();
             $table->double('uts')->nullable();
             $table->double('uas')->nullable();

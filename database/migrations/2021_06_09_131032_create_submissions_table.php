@@ -15,7 +15,7 @@ class CreateSubmissionsTable extends Migration
     {
         Schema::create('submissions', function (Blueprint $table) {
             $table->id();
-            $table->integer('nis');
+            $table->string('nis');
             $table->unsignedBigInteger('assignment_id');
             $table->string('description')->nullable();
             $table->string('file')->nullable();

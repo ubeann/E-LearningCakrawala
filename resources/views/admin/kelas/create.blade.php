@@ -35,7 +35,7 @@
                         </select>
                     </div>
                     <div class="formel" id="input-date-square">
-                        <input required type="text" onfocus="(this.type='date')" name="date" id="date" placeholder="Tahun Ajaran">
+                        <input required type="text" onfocus="(this.type='month')" name="date" id="date" placeholder="Tahun Ajaran">
                     </div>
                 </div>
                 <div class="formel small-btn-submit">
