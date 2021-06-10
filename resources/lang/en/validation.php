@@ -134,8 +134,11 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'username' => [
+            'required' => 'Silahkan isi username terlebih dahulu!',
+        ],
+        'password' => [
+            'required' => 'Silahkan isi password terlebih dahulu!',
         ],
     ],
 

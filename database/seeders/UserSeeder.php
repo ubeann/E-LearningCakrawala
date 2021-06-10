@@ -28,6 +28,7 @@ class UserSeeder extends Seeder
             'created_at' => \Carbon\Carbon::now(),
         ]);
         DB::table('employees')->insert([
+            'user_id' => 2,
             'nip' => '002',
             'name' => 'Mohammad Hatta',
             'created_at' => \Carbon\Carbon::now(),
@@ -39,6 +40,7 @@ class UserSeeder extends Seeder
             'created_at' => \Carbon\Carbon::now(),
         ]);
         DB::table('students')->insert([
+            'user_id' => 3,
             'nis' => '003',
             'name' => 'Rijal Rojaliii',
             'created_at' => \Carbon\Carbon::now(),

@@ -35,6 +35,10 @@ class User extends Authenticatable
     public function student() {
         return $this->hasOne(Student::class);
     }
+    
+    public function employee() {
+        return $this->hasOne(Employee::class);
+    }
 
     // public function room() {
     //     return $this->hasOneThrough(
@@ -54,9 +58,6 @@ class User extends Authenticatable
     //     );
     // }
 
-    public function employee() {
-        return $this->hasOne(Employee::class);
-    }
     /**
      * The attributes that should be cast to native types.
      *

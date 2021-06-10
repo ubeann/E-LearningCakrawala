@@ -62,7 +62,7 @@
     text-align: justify;
     box-sizing: border-box;
     border-radius: 4px;
-    padding: 6px 12px;
+    padding: 10px 12px;
     justify-content: normal;
     gap: 10px;
 }
@@ -70,6 +70,16 @@
 .notif-warning {
     background-color: rgba(249, 220, 92, 0.15);
     border: 1px solid rgba(249, 220, 92, 1);
+}
+
+.notif-danger {
+    background-color: rgba(224, 87, 128, 0.15);
+    border: 1px solid rgba(224, 87, 128, 1);
+}
+
+.notif-success {
+    background-color: rgba(82, 183, 136, 0.15);
+    border: 1px solid rgba(82, 183, 136, 1);
 }
 
 body {

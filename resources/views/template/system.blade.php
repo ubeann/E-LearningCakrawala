@@ -22,7 +22,7 @@
             <button onclick="navbarActive()" type="button" class="flex-row rotate animate-normal"><img src="{{asset('img/icon/navbar-arrow-right.svg')}}"></button>
         </div>
         <nav class="flex-column nav-list js-item">
-            <a href="dashboard.html" class="flex-row poppins @yield('dashboard')" id="j-center">
+            <a href="dashboard" class="flex-row poppins @yield('dashboard')" id="j-center">
                 <img src="{{asset('img/icon/navbar-dashboard.svg')}}">
                 <span class="animate" style="display: none;">Dashboard</span>
             </a>
@@ -60,6 +60,12 @@
                 <img src="{{asset('img/icon/navbar-pengaturan.svg')}}">
                 <span class="animate" style="display: none;">Pengaturan</span>
             </a>
+            @if (Auth::check())
+                <a href="{{route('logout')}}" class="flex-row poppins" id="j-center">
+                    <img src="{{asset('img/icon/navbar-logout-2.svg')}}">
+                    <span class="animate" style="display: none;">Keluar</span>
+                </a>
+            @endif
             <a href="helpdesk.html" class="flex-row poppins @yield('helpdesk')" id="j-center">
                 <img src="{{asset('img/icon/navbar-helpdesk.svg')}}">
                 <span class="animate" style="display: none;">Helpdesk</span>
@@ -68,8 +74,16 @@
         <div class="flex-row nav-profile js-item" id="j-center">
             <img onclick="location.href='#'" src="{{isset($user->photo) ? asset('img/photo/'.$user->photo) : asset('img/photo/pp1.jpg') }}" alt="photo profile">
             <div class="flex-column nav-profile-detail" style="display: none;">
-                <h5 class="poppins">{{isset($user->name) ? $user->name : "Silahkan Login" }}</h5>
-                <h6 class="poppins">{{isset($user->id) ? $user->id : '' }}</h6>
+                @if (isset(Auth::user()->student->name))
+                    <h5 class="poppins">{{Auth::user()->student->name}}</h5>
+                @elseif (isset(Auth::user()->employee->name))
+                    <h5 class="poppins">{{Auth::user()->employee->name}}</h5>
+                @elseif (isset(Auth::user()->status) and Auth::user()->status == 'admin')
+                    <h5 class="poppins">Admin {{Auth::user()->id}}</h5>
+                @else
+                    <h5 class="poppins">{{"Silahkan Login"}}</h5>
+                @endif
+                <h6 class="poppins">{{isset(Auth::user()->username) ? Auth::user()->username : '' }}</h6>
             </div>
         </div>
     </header>

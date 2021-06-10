@@ -13,28 +13,40 @@
             <h2 class="montserrat">SMAN 15 Cakrawala</h2>
         </div>
         <div class="flex-row container-row">
-            <form action="" method="POST" class="flex-column container-form">
+            <form action="{{ url('login') }}" method="POST" class="flex-column container-form">
                 @csrf
                 <div class="flex-column form-title">
                     <h3 class="poppins">Login</h3>
                     <p class="montserrat">Selamat datang di web e-learning SMAN 15 Cakrawala. E-Learning adalah konsep pendidikan yang memanfaatkan Teknologi Informasi dan Komunikasi dalam proses belajar mengajar.</p>
                 </div>
-                @if (session('warning'))
+                @if ($errors->any())
                 <div class="notif-warning flex-row montserrat">
                     <img src="{{asset('img/icon/notif-warning.svg')}}" alt="warning image">
-                    <span>{{ session('warning') }}</span>
+                    @if ($errors->has('username','password'))    
+                        <span>Silahkan isi username dan password terlebih dahulu!</span>
+                    @else
+                        @foreach ($errors->all() as $error)
+                            <span>{{ $error }}</span>
+                        @endforeach
+                    @endif
+                </div>
+                @endif
+                @if (Session::has('error'))
+                <div class="notif-danger flex-row montserrat">
+                    <img src="{{asset('img/icon/notif-danger.svg')}}" alt="danger image">
+                    <span>{{Session::get('error')}}</span>
                 </div>
                 @endif
                 <div class="flex-column form-input">
                     <div class="formel" id="input-id">
-                        <input required type="number" name="id" id="id" placeholder="NIP/NIS">
+                        <input type="number" name="username" id="id" value="{{ old('username') }}" placeholder="NIP/NIS">
                     </div>
                     <div class="formel" id="input-pass">
-                        <input required type="password" name="password" id="password" placeholder="Password">
+                        <input type="password" name="password" id="password" value="{{ old('password') }}" placeholder="Password">
                     </div>
                     <div class="formel flex-row">
                         <div class="remember flex-row">
-                            <input type="checkbox" name="remember" id="remember">
+                            <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
                             <label for="remember" class="montserrat link">Ingat saya</label>
                         </div>
                         <a href="#" class="montserrat link"> Lupa password?</a>

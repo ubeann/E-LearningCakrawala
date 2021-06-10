@@ -15,6 +15,7 @@ class CreateEmployeesTable extends Migration
     {
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
             $table->string('nip');
             $table->string('name');
             $table->string('status')->nullable();
@@ -24,6 +25,10 @@ class CreateEmployeesTable extends Migration
             $table->string('address')->nullable();
             $table->string('photo')->nullable();
             $table->timestamps();
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
             $table->foreign('nip')
                 ->references('username')
                 ->on('users')
