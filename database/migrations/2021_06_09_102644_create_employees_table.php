@@ -21,7 +21,7 @@ class CreateEmployeesTable extends Migration
             $table->string('status')->nullable();
             $table->string('phone')->nullable();
             $table->integer('salary')->nullable();
-            $table->date('tenure')->nullable();
+            $table->string('tenure')->nullable();
             $table->string('address')->nullable();
             $table->string('photo')->nullable();
             $table->timestamps();

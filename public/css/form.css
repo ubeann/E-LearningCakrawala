@@ -1,11 +1,18 @@
+#container {
+    /* layout */
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
 .container {
     /* size */
     width: 100%;
     /* layout */
-    justify-content: center;
     gap: 75px;
+    padding: 20px 75px;
+    margin: auto;
+    justify-content: center;
     box-sizing: border-box;
-    padding: 0 75px;
 }
 
 .container-title {

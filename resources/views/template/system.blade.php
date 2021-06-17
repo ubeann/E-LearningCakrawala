@@ -15,14 +15,14 @@
     <!-- js files -->
     @yield('scriptHead')
 </head>
-<body class="flex-row">
+<body class="flex-row" id="align-item-start">
     <header class="flex-column vh100 header-clicked" id="header-side">
         <div class="flex-row nav-head js-item animate-normal" id="j-center">
             <img class="animate-normal" src="{{asset('img/icon/navbar-logo.svg')}}" alt="logo" style="display: none;">
             <button onclick="navbarActive()" type="button" class="flex-row rotate animate-normal"><img src="{{asset('img/icon/navbar-arrow-right.svg')}}"></button>
         </div>
         <nav class="flex-column nav-list js-item">
-            <a href="dashboard" class="flex-row poppins @yield('dashboard')" id="j-center">
+            <a href="{{route('dashboard')}}" class="flex-row poppins @yield('dashboard')" id="j-center">
                 <img src="{{asset('img/icon/navbar-dashboard.svg')}}">
                 <span class="animate" style="display: none;">Dashboard</span>
             </a>

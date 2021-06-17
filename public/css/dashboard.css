@@ -1,0 +1,122 @@
+#container-dashboard {
+    /* size */
+    width: 100%;
+    /* layout */
+    justify-content: normal;
+    gap: 30px;
+    box-sizing: border-box;
+    padding: 20px 75px;
+}
+
+.container-title {
+    /* size */
+    width: 100%;
+    height: max-content;
+    /* layout */
+    box-sizing: border-box;
+    justify-content: center;
+    padding: 18px;
+    gap: 0;
+    /* style */
+    border-radius: 5px;
+    background: #52B788;
+    box-shadow: 0px 6px 10px rgba(33, 33, 33, 0.25);
+}
+
+.container-title h1,
+.container-title h2 {
+    /* size */
+    margin: 0;
+    /* text style */
+    font-size: 30px;
+    font-style: normal;
+    text-align: center;
+    text-align: center;
+}
+
+.container-title h1 {
+    /* text style */
+    font-weight: 600;
+    color: #FBFEFD;
+}
+
+.container-content {
+    /* size */
+    width: 100%;
+    /* layout */
+    justify-content: normal;
+    gap: 30px;
+}
+
+#container-dashboard .container-content {
+    /* layout */
+    align-items: flex-start;
+}
+
+.container-mapel, .container-account {
+    /* size */
+    width: 100%;
+    /* layout */
+    justify-content: normal;
+    box-sizing: border-box;
+    padding: 15px 20px;
+    gap: 15px;
+    /* style */
+    border-radius: 5px;
+    border: 1px solid #DDDDDD;
+}
+
+.title-section h2 {
+    /* size */
+    margin: 0;
+    /* text style */
+    font-size: 26px;
+    font-weight: 600;
+    font-style: normal;
+    text-align: center;
+    color: #212121;
+}
+
+.container-account {
+    /* width */
+    max-width: 425px;
+}
+
+#list-admin, #list-employee, #list-student {
+    /* size */
+    width: 100%;
+}
+
+.list-item {
+    /* addition */
+    transition: 0.35s;
+}
+
+/* .list-item:hover {
+    background-color: rgba(33, 33, 33, 0.1);
+} */
+
+.list-item:hover #button-group {
+    /* style */
+    opacity: 100;
+}
+
+.container-account a, .container-account form button {
+    /* text style */
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    /* addition */
+    text-decoration: none;
+}
+
+#button-group {
+    /* addition */
+    opacity: 0;
+    transition: 0.20s;
+}
+
+.container-account a:hover {
+    /* addition */
+    text-decoration: underline;
+}

@@ -82,7 +82,12 @@
     border: 1px solid rgba(82, 183, 136, 1);
 }
 
+#align-item-start {
+    align-items: flex-start;
+}
+
 body {
+    height: max-content;
     margin: 0;
     background-color: #FBFEFD;
 }

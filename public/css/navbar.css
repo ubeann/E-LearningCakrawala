@@ -5,6 +5,10 @@ header {
     border-radius: 0 5px 5px 0;
     /* addition */
     transition: 0.45s;
+    /* position */
+    position: sticky;
+    top: 0;
+    left: 0;
 }
 
 .nav-head {
