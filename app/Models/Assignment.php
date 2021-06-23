@@ -15,17 +15,23 @@ class Assignment extends Model
      * @var array
      */
     protected $fillable = [
+        'room_id',
         'name',
+        'type',
         'release',
         'deadline',
         'description',
     ];
 
-    public function lesson() {
-        return $this->belongsTo(Lesson::class);
+    public function room() {
+        return $this->belongsTo(Room::class);
     }
 
     public function submission() {
         return $this->hasMany(Submission::class);
+    }
+
+    public function grade() {
+        return $this->hasMany(Grade::class);
     }
 }

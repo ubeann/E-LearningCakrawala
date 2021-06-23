@@ -15,13 +15,14 @@ class Grade extends Model
      * @var array
      */
     protected $fillable = [
-        'assignment',
-        'uts',
-        'uas',
+        'assignment_id',
+        'nis',
+        'mark',
+        'description',
     ];
 
-    public function lesson() {
-        return $this->belongsTo(Lesson::class);
+    public function assignment() {
+        return $this->belongsTo(Assignment::class);
     }
 
     public function student() {

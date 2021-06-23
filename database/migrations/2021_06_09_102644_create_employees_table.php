@@ -32,6 +32,7 @@ class CreateEmployeesTable extends Migration
             $table->foreign('nip')
                 ->references('username')
                 ->on('users')
+                ->onUpdate('cascade')
                 ->onDelete('cascade');
         });
     }

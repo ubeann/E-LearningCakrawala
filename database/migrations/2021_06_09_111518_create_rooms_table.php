@@ -19,10 +19,12 @@ class CreateRoomsTable extends Migration
             $table->string('name');
             $table->string('year');
             $table->string('description')->nullable();
+            $table->string('photo')->nullable();
             $table->timestamps();
             $table->foreign('teacher_id')
                 ->references('nip')
                 ->on('employees')
+                ->onUpdate('cascade')
                 ->onDelete('cascade');
         });
     }

@@ -54,11 +54,18 @@
                     </div>
                     <div class="formel" id="input-status">
                         <select name="room" id="room">
-                            <option disabled {{old('status') == null ? 'selected' : ''}}>Pilih ruangan kelas</option>
-                            <option {{old('status') == 'Room1' ? 'selected' : ''}}>Room1</option>
-                            <option {{old('status') == 'Room2' ? 'selected' : ''}}>Room2</option>
-                            {{-- <option {{old('status') == 'Room1' ? 'selected' : ''}} value="Room1">Room1</option>
-                            <option {{old('status') == 'Room2' ? 'selected' : ''}} value="Room2">Room2</option> --}}
+                            @if (count($room) == 0)
+                                <option disabled selected>Tidak ada kelas yang tersedia</option>
+                            @else
+                                <option disabled {{(old('room') == null and $student->room_id == null) ? 'selected' : ''}}>Pilih ruangan kelas</option>
+                                @foreach ($room as $data)
+                                    @if (old('room') != null)
+                                        <option {{old('room') == $data->id ? 'selected' : ''}} value="{{$data->id}}">{{$data->name}}</option>
+                                    @else 
+                                        <option {{$student->room_id == $data->id ? 'selected' : ''}} value="{{$data->id}}">{{$data->name}}</option>
+                                    @endif
+                                @endforeach
+                            @endif
                         </select>
                     </div>
                     <div class="formel flex-row">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Student;
+use App\Models\Room;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -15,10 +16,23 @@ use Illuminate\Support\Facades\Session;
 class StudentController extends Controller
 {
     public function form() {
-        return view('admin.account.student.create');
+        // Check has Room or not
+        if (!(count(Room::all()) >= 1)) {
+            Session::flash('error', 'Belum ada kelas yang terdaftar pada sistem! Silahkan buat ruang kelas terlebih dahulu.');
+            return redirect()->route('dashboard');
+        }
+        // Get data from database
+        $room = Room::all();
+        // View
+        return view('admin.account.student.create', compact('room'));
     }
 
     public function create(Request $request) {
+        // Check has Room or not
+        if (!(count(Room::all()) >= 1)) {
+            Session::flash('error', 'Belum ada kelas yang terdaftar pada sistem! Silahkan buat ruang kelas terlebih dahulu.');
+            return redirect()->route('dashboard');
+        }
         // Validation input
         $request->validate([
             'username'  => 'required|unique:users,username',
@@ -47,7 +61,7 @@ class StudentController extends Controller
             'user_id'   => User::max('id'),
             'nis'       => User::find(User::max('id'))->username,
             'name'      => $request->input('lname') == null ? $request->input('fname') : $request->input('fname') . ' ' . $request->input('lname'),
-            // 'room'      => $request->input('room'), 
+            'room_id'   => $request->input('room'), 
             'gender'    => $request->input('gender'), 
             'birthday'  => $request->input('birthday'), 
             'address'   => $request->input('address'), 
@@ -92,8 +106,10 @@ class StudentController extends Controller
             }
             $index += 1 ;
         }
+        // Get data from database
+        $room = Room::all();
         // Return view
-        return view('admin.account.student.edit', compact('student', 'firstName', 'lastName'));
+        return view('admin.account.student.edit', compact('student', 'firstName', 'lastName', 'room'));
     }
     
     public function update(Request $request, Student $student) {
@@ -111,7 +127,7 @@ class StudentController extends Controller
         Student::where('id', $student->id)
             ->update([
                 'name'      => $request->input('lname') == null ? $request->input('fname') : $request->input('fname') . ' ' . $request->input('lname'),
-                // 'room'      => $request->input('room'), 
+                'room_id'   => $request->input('room'), 
                 'gender'    => $request->input('gender'), 
                 'birthday'  => $request->input('birthday'), 
                 'address'   => $request->input('address'), 
@@ -131,8 +147,6 @@ class StudentController extends Controller
         if ($request->input('username') != $student->nis) {
             User::where('id', $student->user_id)
                 ->update(['username' => $request->input('username')]);
-            Student::where('id', $student->id)
-                ->update(['nis' => $request->input('username')]);
         }
         // Change password
         if ($request->input('password') != null) {

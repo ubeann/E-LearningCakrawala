@@ -17,7 +17,7 @@ class CreateStudentsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('nis');
-            $table->unsignedBigInteger('room')->nullable();
+            $table->unsignedBigInteger('room_id')->nullable();
             $table->string('name');
             $table->string('gender')->nullable();
             $table->date('birthday')->nullable();
@@ -31,8 +31,9 @@ class CreateStudentsTable extends Migration
             $table->foreign('nis')
                 ->references('username')
                 ->on('users')
+                ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->foreign('room')
+            $table->foreign('room_id')
                 ->references('id')
                 ->on('rooms')
                 ->onDelete('cascade');

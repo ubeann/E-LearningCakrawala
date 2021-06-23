@@ -19,6 +19,15 @@ class CreateSubmissionsTable extends Migration
             $table->unsignedBigInteger('assignment_id');
             $table->string('description')->nullable();
             $table->string('file')->nullable();
+            $table->foreign('nis')
+                ->references('nis')
+                ->on('students')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->foreign('assignment_id')
+                ->references('id')
+                ->on('assignments')
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }

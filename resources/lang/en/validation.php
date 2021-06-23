@@ -142,12 +142,25 @@ return [
             'required' => 'Silahkan isi password terlebih dahulu!',
         ],
         'phone' => [
-            'required' => 'Silahkan isi nomor handphone terlebih dahulu!',
-            'unique'   => 'Nomor hape telah dipakai, silahkan gunakan nomor handphone yang lain!',
+            'required' => 'Silahkan isi nomor HP terlebih dahulu!',
+            'unique'   => 'Nomor HP telah dipakai, silahkan gunakan nomor handphone yang lain!',
         ],
         'photo' => [
             'mimes'    => 'Silahkan upload foto dengan ekstensi jpg, jpeg, dan png !',
             'max'      => 'Foto maksimal berukuran 2MB, silahkan gunakan foto lain!',
+        ],
+        'teacher_id' => [
+            'required' => 'Silahkan pilih wali kelas terlebih dahulu!',
+        ],
+        'year' => [
+            'required' => 'Silahkan isi tahun ajaran terlebih dahulu!',
+        ],
+        'description' => [
+            'required' => 'Silahkan isi deskripsi terlebih dahulu!',
+            'max'      => 'Deskripsi maksimal dalam 255 karakter!',
+        ],
+        'name' => [
+            'required' => 'Silahkan isi nama terlebih dahulu!',
         ],
     ],
 

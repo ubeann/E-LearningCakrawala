@@ -14,19 +14,19 @@ class CreateGradesTable extends Migration
     public function up()
     {
         Schema::create('grades', function (Blueprint $table) {
-            $table->unsignedBigInteger('lesson_id');
+            $table->unsignedBigInteger('assignment_id');
             $table->string('nis');
-            $table->double('assignment')->nullable();
-            $table->double('uts')->nullable();
-            $table->double('uas')->nullable();
+            $table->double('mark')->nullable();
+            $table->string('description')->nullable();
             $table->timestamps();
-            $table->foreign('lesson_id')
+            $table->foreign('assignment_id')
                 ->references('id')
-                ->on('lessons')
+                ->on('assignments')
                 ->onDelete('cascade');
             $table->foreign('nis')
                 ->references('nis')
                 ->on('students')
+                ->onUpdate('cascade')
                 ->onDelete('cascade');
         });
     }

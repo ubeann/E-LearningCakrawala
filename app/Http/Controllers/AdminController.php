@@ -39,7 +39,7 @@ class AdminController extends Controller
     public function update(Request $request, User $user) {
         // Validation input
         $request->validate([
-            'username' => 'required|unique:users,username',
+            'username' => 'required|unique:users,username,' . $user->id,
         ]);
         // Update to database (Users table)
         User::where('id', $user->id)
@@ -52,6 +52,24 @@ class AdminController extends Controller
         // Return view
         Session::flash('success', 'Akun admin dengan username "' . $request->input('username') . '" berhasil diedit.');
         return redirect()->route('dashboard');
+    }
+
+    public function setting(Request $request, User $user) {
+        // Validation input
+        $request->validate([
+            'username' => 'required|unique:users,username,' . $user->id,
+        ]);
+        // Update to database (Users table)
+        User::where('id', $user->id)
+            ->update(['username' => $request->input('username')]);
+        // Update password if user input new password
+        if ($request->input('password') != null) {
+            User::where('id', $user->id)
+            ->update(['password' => Hash::make($request->input('password'))]);
+        }
+        // Return view
+        Session::flash('success', 'Akun admin "' . $request->input('username') . '" berhasil diedit.');
+        return redirect()->route('setting');
     }
 
     public function delete(User $user) {

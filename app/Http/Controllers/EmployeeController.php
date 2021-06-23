@@ -19,6 +19,24 @@ class EmployeeController extends Controller
     }
 
     public function create(Request $request) {
+        // Check phone number
+        $phone = str_replace(" ","",$request->input('phone'));
+        $phone = str_replace("(","",$phone);
+        $phone = str_replace(")","",$phone);
+        $phone = str_replace(".","",$phone);
+        $phone = str_replace("-","",$phone);
+        if(!preg_match('/[^+0-9]/',trim($phone))){
+            if(substr(trim($phone), 0, 3) == '+62'){
+                $phone = trim($phone);
+            }
+            elseif(substr(trim($phone), 0, 1) == '0'){
+                $phone = '+62'.substr(trim($phone), 1);
+            }
+        }
+        // Merge request input
+        $request->merge([
+            'phone' => $phone,
+        ]);
         // Validation input
         $request->validate([
             'username'  => 'required|unique:users,username',
@@ -48,12 +66,12 @@ class EmployeeController extends Controller
             'user_id'   => User::max('id'),
             'nip'       => User::find(User::max('id'))->username,
             'name'      => $request->input('lname') == null ? $request->input('fname') : $request->input('fname') . ' ' . $request->input('lname'),
-            'status'    => $request->input('status'), 
-            'phone'     => $request->input('phone'), 
-            'salary'    => $request->input('salary'), 
-            'tenure'    => $request->input('tenure'), 
-            'address'   => $request->input('address'), 
-            'photo'     => isset($imageName) ? $imageName : null, 
+            'status'    => $request->input('status'),
+            'phone'     => $phone,
+            'salary'    => $request->input('salary'),
+            'tenure'    => $request->input('tenure'),
+            'address'   => $request->input('address'),
+            'photo'     => isset($imageName) ? $imageName : null,
         ]);
         // Return view
         Session::flash('success', 'Akun employee dengan nama "' . ($request->input('lname') == null ? $request->input('fname') : $request->input('fname') . ' ' . $request->input('lname')) . '" telah dibuat.');
@@ -99,6 +117,24 @@ class EmployeeController extends Controller
     }
 
     public function update(Request $request, Employee $employee) {
+        // Check phone number
+        $phone = str_replace(" ","",$request->input('phone'));
+        $phone = str_replace("(","",$phone);
+        $phone = str_replace(")","",$phone);
+        $phone = str_replace(".","",$phone);
+        $phone = str_replace("-","",$phone);
+        if(!preg_match('/[^+0-9]/',trim($phone))){
+            if(substr(trim($phone), 0, 3) == '+62'){
+                $phone = trim($phone);
+            }
+            elseif(substr(trim($phone), 0, 1) == '0'){
+                $phone = '+62'.substr(trim($phone), 1);
+            }
+        }
+        // Merge request input
+        $request->merge([
+            'phone' => $phone,
+        ]);
         // Validation input
         $request->validate([
             'username'  => 'required|unique:users,username,' . $employee->user_id,
@@ -115,7 +151,7 @@ class EmployeeController extends Controller
             ->update([
                 'name'      => $request->input('lname') == null ? $request->input('fname') : $request->input('fname') . ' ' . $request->input('lname'),
                 'status'    => $request->input('status'), 
-                'phone'     => $request->input('phone'), 
+                'phone'     => $phone, 
                 'salary'    => $request->input('salary'), 
                 'tenure'    => $request->input('tenure'), 
                 'address'   => $request->input('address'), 
@@ -135,8 +171,6 @@ class EmployeeController extends Controller
         if ($request->input('username') != $employee->nip) {
             User::where('id', $employee->user_id)
                 ->update(['username' => $request->input('username')]);
-            Employee::where('id', $employee->id)
-                ->update(['nip' => $request->input('username')]);
         }
         // Change password
         if ($request->input('password') != null) {

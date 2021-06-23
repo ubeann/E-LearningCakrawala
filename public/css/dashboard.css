@@ -66,6 +66,11 @@
     border: 1px solid #DDDDDD;
 }
 
+.title-section {
+    /* size */
+    width: 100%;
+}
+
 .title-section h2 {
     /* size */
     margin: 0;
@@ -96,7 +101,7 @@
     background-color: rgba(33, 33, 33, 0.1);
 } */
 
-.list-item:hover #button-group {
+.list-item:hover #button-group, .card:hover #button-group {
     /* style */
     opacity: 100;
 }
@@ -119,4 +124,42 @@
 .container-account a:hover {
     /* addition */
     text-decoration: underline;
+}
+
+@media only screen and (max-width: 1680px) {
+    .container-content {
+        /* layout */
+        flex-wrap: wrap;
+    }
+    #container-dashboard {
+        /* layout */
+        padding: 20px 15px;
+    }
+    .container-account {
+        /* width */
+        max-width: unset;
+    }
+}
+
+@media only screen and (max-width: 775px) {
+    .container-content {
+        /* layout */
+        flex-wrap: wrap;
+    }
+    #container-dashboard {
+        /* layout */
+        padding: 20px 15px;
+    }
+    .container-account {
+        /* width */
+        max-width: unset;
+    }
+    .card-body #button-group form {
+        /* size */
+        width: 100%;
+    }
+    .card-body #button-group form button {
+        /* size */
+        width: 100%;
+    }
 }

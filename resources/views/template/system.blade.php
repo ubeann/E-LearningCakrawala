@@ -22,54 +22,61 @@
             <button onclick="navbarActive()" type="button" class="flex-row rotate animate-normal"><img src="{{asset('img/icon/navbar-arrow-right.svg')}}"></button>
         </div>
         <nav class="flex-column nav-list js-item">
-            <a href="{{route('dashboard')}}" class="flex-row poppins @yield('dashboard')" id="j-center">
+            <a href="{{Auth::check() ? route('dashboard') : route('login')}}" class="flex-row poppins @yield('dashboard')" id="j-center">
                 <img src="{{asset('img/icon/navbar-dashboard.svg')}}">
-                <span class="animate" style="display: none;">Dashboard</span>
-            </a>
-            <a href="kelas" class="flex-row poppins @yield('kelas')" id="j-center">
-                <img src="{{asset('img/icon/navbar-kelas.svg')}}">
-                <span class="animate" style="display: none;">Kelas</span>
-            </a>
-            <a href="jadwal.html" class="flex-row poppins @yield('jadwal')" id="j-center">
-                <img src="{{asset('img/icon/navbar-jadwal.svg')}}">
-                <span class="animate" style="display: none;">Jadwal</span>
-            </a>
-            <svg height="2" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M0 1H1000" stroke="#FBFEFD" stroke-opacity="0.5"/>
-            </svg>
-            <a href="tugas" class="flex-row poppins @yield('tugas')" id="j-center">
-                <img src="{{asset('img/icon/navbar-tugas.svg')}}">
-                <span class="animate" style="display: none;">Tugas</span>
-            </a>
-            <a href="absensi.html" class="flex-row poppins @yield('absensi')" id="j-center">
-                <img src="{{asset('img/icon/navbar-absensi.svg')}}">
-                <span class="animate" style="display: none;">Absensi</span>
-            </a>
-            <a href="nilai" class="flex-row poppins @yield('nilai')" id="j-center">
-                <img src="{{asset('img/icon/navbar-nilai.svg')}}">
-                <span class="animate" style="display: none;">Nilai</span>
-            </a>
-            <a href="spp.html" class="flex-row poppins @yield('spp')" id="j-center">
-                <img src="{{asset('img/icon/navbar-spp.svg')}}">
-                <span class="animate" style="display: none;">SPP</span>
-            </a>
-            <svg height="2" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M0 1H1000" stroke="#FBFEFD" stroke-opacity="0.5"/>
-            </svg>
-            <a href="settings" class="flex-row poppins @yield('settings')" id="j-center">
-                <img src="{{asset('img/icon/navbar-pengaturan.svg')}}">
-                <span class="animate" style="display: none;">Pengaturan</span>
+                <span class="animate" style="display: none;">{{Auth::check() ? 'Dashboard' : 'Login'}}</span>
             </a>
             @if (Auth::check())
+                <svg height="2" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0 1H1000" stroke="#FBFEFD" stroke-opacity="0.5"/>
+                </svg>
+                <a href="{{Auth::user()->status == 'admin' ? route('roomIndex') : ''}}" class="flex-row poppins @yield('kelas')" id="j-center">
+                    <img src="{{asset('img/icon/navbar-kelas.svg')}}">
+                    <span class="animate" style="display: none;">Kelas</span>
+                </a>
+                @if (Auth::user()->status != 'admin')
+                    {{-- <a href="jadwal.html" class="flex-row poppins @yield('jadwal')" id="j-center">
+                        <img src="{{asset('img/icon/navbar-jadwal.svg')}}">
+                        <span class="animate" style="display: none;">Jadwal</span>
+                    </a> --}}
+                    <a href="tugas" class="flex-row poppins @yield('tugas')" id="j-center">
+                        <img src="{{asset('img/icon/navbar-tugas.svg')}}">
+                        <span class="animate" style="display: none;">Tugas</span>
+                    </a>
+                    {{-- <a href="absensi.html" class="flex-row poppins @yield('absensi')" id="j-center">
+                        <img src="{{asset('img/icon/navbar-absensi.svg')}}">
+                        <span class="animate" style="display: none;">Absensi</span>
+                    </a> --}}
+                    <a href="nilai" class="flex-row poppins @yield('nilai')" id="j-center">
+                        <img src="{{asset('img/icon/navbar-nilai.svg')}}">
+                        <span class="animate" style="display: none;">Nilai</span>
+                    </a>
+                    {{-- <a href="spp.html" class="flex-row poppins @yield('spp')" id="j-center">
+                        <img src="{{asset('img/icon/navbar-spp.svg')}}">
+                        <span class="animate" style="display: none;">SPP</span>
+                    </a> --}}
+                @endif
+                <svg height="2" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0 1H1000" stroke="#FBFEFD" stroke-opacity="0.5"/>
+                </svg>
+                <a href="{{route('setting')}}" class="flex-row poppins @yield('settings')" id="j-center">
+                    <img src="{{asset('img/icon/navbar-pengaturan.svg')}}">
+                    <span class="animate" style="display: none;">Pengaturan</span>
+                </a>
+            @endif
+            <a href="{{route('helpdesk')}}" class="flex-row poppins @yield('helpdesk')" id="j-center">
+                <img src="{{asset('img/icon/navbar-helpdesk.svg')}}">
+                <span class="animate" style="display: none;">Helpdesk</span>
+            </a>
+            @if (Auth::check())
+                <svg height="2" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0 1H1000" stroke="#FBFEFD" stroke-opacity="0.5"/>
+                </svg>
                 <a href="{{route('logout')}}" class="flex-row poppins" id="j-center">
                     <img src="{{asset('img/icon/navbar-logout-2.svg')}}">
                     <span class="animate" style="display: none;">Keluar</span>
                 </a>
             @endif
-            <a href="helpdesk.html" class="flex-row poppins @yield('helpdesk')" id="j-center">
-                <img src="{{asset('img/icon/navbar-helpdesk.svg')}}">
-                <span class="animate" style="display: none;">Helpdesk</span>
-            </a>
         </nav>
         <div class="flex-row nav-profile js-item" id="j-center">
             <img onclick="location.href='#'" src="{{isset($user->photo) ? asset('img/photo/'.$user->photo) : asset('img/photo/pp1.jpg') }}" alt="photo profile">

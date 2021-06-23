@@ -14,6 +14,8 @@ class Submission extends Model
      * @var array
      */
     protected $fillable = [
+        'nis',
+        'assignment_id',
         'description',
         'file',
     ];

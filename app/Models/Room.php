@@ -15,9 +15,11 @@ class Room extends Model
      * @var array
      */
     protected $fillable = [
+        'teacher_id',
         'name',
         'year',
         'description',
+        'photo',
     ];
 
     public function teacher() {
