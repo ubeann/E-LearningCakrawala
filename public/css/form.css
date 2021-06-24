@@ -364,3 +364,45 @@ input[type='number']::-webkit-inner-spin-button {
         max-width: 100%;
     }
 }
+
+@media only screen and (max-width: 640px) {
+    .container {
+        /* layout */
+        gap: 25px;
+        padding: 0 25px;
+    }
+
+    .container-row {
+        /* layout */
+        justify-content: center;
+    }
+
+    .container-form {
+        /* size */
+        width: 100%;
+        min-width: unset;
+        max-width: 750px;
+    }
+
+    .container-illust {
+        /* size */
+        width: 0;
+        /* design */
+        display: none;
+    }
+
+    .container-illust img {
+        /* design */
+        display: none;
+    }
+
+    .small-btn-submit, .medium-btn-submit {
+        /* size */
+        max-width: 100%;
+    }
+
+    .formel {
+        /* layout */
+        flex-wrap: wrap;
+    }
+}

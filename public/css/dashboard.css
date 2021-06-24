@@ -53,7 +53,7 @@
     align-items: flex-start;
 }
 
-.container-mapel, .container-account {
+.container-mapel, .container-account, .container-assignment {
     /* size */
     width: 100%;
     /* layout */
@@ -82,7 +82,7 @@
     color: #212121;
 }
 
-.container-account {
+.container-account, .container-assignment {
     /* width */
     max-width: 425px;
 }
@@ -106,7 +106,7 @@
     opacity: 100;
 }
 
-.container-account a, .container-account form button {
+.container-account a, .container-account form button, .container-assignment a, .container-assignment form button {
     /* text style */
     font-style: normal;
     font-weight: 600;
@@ -121,7 +121,7 @@
     transition: 0.20s;
 }
 
-.container-account a:hover {
+.container-account a:hover, .container-assignment a:hover {
     /* addition */
     text-decoration: underline;
 }
@@ -135,7 +135,7 @@
         /* layout */
         padding: 20px 15px;
     }
-    .container-account {
+    .container-account, .container-assignment {
         /* width */
         max-width: unset;
     }

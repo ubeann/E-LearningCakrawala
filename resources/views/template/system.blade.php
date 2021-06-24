@@ -30,31 +30,21 @@
                 <svg height="2" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M0 1H1000" stroke="#FBFEFD" stroke-opacity="0.5"/>
                 </svg>
-                <a href="{{Auth::user()->status == 'admin' ? route('roomIndex') : ''}}" class="flex-row poppins @yield('kelas')" id="j-center">
+                <a href="{{(Auth::user()->status == 'admin' or Auth::user()->status == 'employee') ? route('roomIndex') : ''}}" class="flex-row poppins @yield('kelas')" id="j-center">
                     <img src="{{asset('img/icon/navbar-kelas.svg')}}">
                     <span class="animate" style="display: none;">Kelas</span>
                 </a>
                 @if (Auth::user()->status != 'admin')
-                    {{-- <a href="jadwal.html" class="flex-row poppins @yield('jadwal')" id="j-center">
-                        <img src="{{asset('img/icon/navbar-jadwal.svg')}}">
-                        <span class="animate" style="display: none;">Jadwal</span>
-                    </a> --}}
-                    <a href="tugas" class="flex-row poppins @yield('tugas')" id="j-center">
+                    <a href="{{route('taskIndex')}}" class="flex-row poppins @yield('tugas')" id="j-center">
                         <img src="{{asset('img/icon/navbar-tugas.svg')}}">
                         <span class="animate" style="display: none;">Tugas</span>
                     </a>
-                    {{-- <a href="absensi.html" class="flex-row poppins @yield('absensi')" id="j-center">
-                        <img src="{{asset('img/icon/navbar-absensi.svg')}}">
-                        <span class="animate" style="display: none;">Absensi</span>
-                    </a> --}}
-                    <a href="nilai" class="flex-row poppins @yield('nilai')" id="j-center">
-                        <img src="{{asset('img/icon/navbar-nilai.svg')}}">
-                        <span class="animate" style="display: none;">Nilai</span>
-                    </a>
-                    {{-- <a href="spp.html" class="flex-row poppins @yield('spp')" id="j-center">
-                        <img src="{{asset('img/icon/navbar-spp.svg')}}">
-                        <span class="animate" style="display: none;">SPP</span>
-                    </a> --}}
+                    @if (Auth::user()->status == 'student')
+                        <a href="nilai" class="flex-row poppins @yield('nilai')" id="j-center">
+                            <img src="{{asset('img/icon/navbar-nilai.svg')}}">
+                            <span class="animate" style="display: none;">Nilai</span>
+                        </a>
+                    @endif
                 @endif
                 <svg height="2" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M0 1H1000" stroke="#FBFEFD" stroke-opacity="0.5"/>
@@ -79,7 +69,17 @@
             @endif
         </nav>
         <div class="flex-row nav-profile js-item" id="j-center">
-            <img onclick="location.href='#'" src="{{isset($user->photo) ? asset('img/photo/'.$user->photo) : asset('img/photo/pp1.jpg') }}" alt="photo profile">
+            @if (Auth::check())
+                @if (Auth::user()->status == 'employee')
+                    <img {{str_replace('$',"'", 'onclick=location.href=$' . route('setting') . '$')}} src="{{Auth::user()->employee->photo != null ? asset('img/photo/' . Auth::user()->employee->photo) : asset('img/photo/pp1.jpg') }}" alt="profile {{Auth::user()->employee->name}}"> 
+                @elseif (Auth::user()->status == 'student')
+                    <img {{str_replace('$',"'", 'onclick=location.href=$' . route('setting') . '$')}} src="{{Auth::user()->student->photo != null ? asset('img/photo/' . Auth::user()->student->photo) : asset('img/photo/pp1.jpg') }}" alt="profile {{Auth::user()->student->name}}"> 
+                @else
+                    <img src="{{asset('img/photo/pp1.jpg')}}" alt="profile admin {{Auth::user()->username}}"> 
+                @endif
+            @else
+                <img src="{{asset('img/photo/pp1.jpg')}}" alt="profile user"> 
+            @endif
             <div class="flex-column nav-profile-detail" style="display: none;">
                 @if (isset(Auth::user()->student->name))
                     <h5 class="poppins">{{Auth::user()->student->name}}</h5>

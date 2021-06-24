@@ -44,8 +44,19 @@
     width: 100%;
     height: max-content;
     /* layout */
+    justify-content: center;
     align-items: flex-start;
     gap: 25px;
+}
+
+.box-container {
+    /* size */
+    width: 100%;
+    max-width: 325px;
+    /* layout */
+    align-items: center;
+    justify-content: normal;
+    gap: 15px;
 }
 
 .container-preview {
@@ -66,7 +77,7 @@
     object-fit: cover;
 }
 
-.container-preview h2, .container-preview span {
+.container-preview h2, .container-preview span, .container-preview p {
     /* size */
     margin: 0;
     /* text style */
@@ -79,6 +90,12 @@
     /* font style */
     font-weight: 600;
     font-size: 28px;
+}
+
+.container-preview p {
+    /* font style */
+    font-weight: 400;
+    font-size: 18px;
 }
 
 .container-preview span {

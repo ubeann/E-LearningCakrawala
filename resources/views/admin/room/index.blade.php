@@ -76,7 +76,7 @@
                   </div>
                 @else
                   <div class="row row-cols-1 row-cols-md-4 g-4">
-                  @foreach ($room as $data)
+                    @foreach ($room as $data)
                     <div class="col">
                       <div class="card h-100">
                         <img src="{{$data->photo == null ? asset('img/room/default.jpg') : asset('img/room/' . $data->photo)}}" class="card-img-top" alt="foto kelas" style="height: 200px;object-fit: cover;">
@@ -95,10 +95,9 @@
                         </div>
                       </div>
                     </div>
+                    @endforeach
                     <div class="col"></div>
                     <div class="col"></div>
-                    <div class="col"></div>
-                  @endforeach
                   </div>
                 @endif
             </div>

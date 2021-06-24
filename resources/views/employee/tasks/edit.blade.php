@@ -1,6 +1,6 @@
 @extends('template.system')
 
-@section('title', 'Buat Tugas Baru - E-Learning Cakrawala (' . $room->name . ')')
+@section('title', 'Edit Tugas (' . $assignment->name . ') - E-Learning Cakrawala')
 
 @section('css')
     <link rel="stylesheet" href="{{asset('css/form.css')}}">
@@ -11,10 +11,10 @@
 @section('container')
     <div class="flex-column container" id="container">
         <div class="flex-row container-row">
-            <form action="{{route('taskCreate', $room->id)}}" method="POST" class="flex-column container-form">
+            <form action="{{route('taskEdit', $assignment->id)}}" method="POST" class="flex-column container-form">
                 @csrf
                 <div class="flex-column form-title">
-                    <h3 class="poppins">Buat Tugas Baru Kelas {{$room->name}}</h3>
+                    <h3 class="poppins">Edit Tugas ({{$assignment->name}}) Pada Kelas {{$assignment->room->name}}</h3>
                     <p class="montserrat">Isilah dengan teliti pada data-data di bawah ini!</p>
                 </div>
                 @if ($errors->any())
@@ -47,38 +47,44 @@
                 @endif
                 <div class="flex-column form-input">
                     <div class="formel" id="input-star">
-                        <input type="text" name="name" id="name" placeholder="Judul tugas" value="{{old('name')}}">
+                        <input type="text" name="name" id="name" placeholder="Judul tugas" value="{{old('name') != null ? old('name') : $assignment->name}}">
                     </div>
                     <div class="formel" id="input-3dots">
                         <select name="type" id="type">
-                            <option disabled {{old('type') == null ? 'selected' : ''}}>Tipe Tugas</option>
-                            <option {{old('type') == 'Online Teks' ? 'selected' : ''}} value="Online Teks">Online Teks</option>
-                            <option {{old('type') == 'Upload File' ? 'selected' : ''}} value="Upload File">Upload File</option>
-                            <option {{old('type') == 'Keduanya' ? 'selected' : ''}} value="Keduanya">Keduanya</option>
+                            <option disabled {{(old('type') == null and $assignment->type == null) ? 'selected' : ''}}>Tipe Tugas</option>
+                            @if (old('type') != null)
+                                <option {{old('type') == 'Online Teks' ? 'selected' : ''}} value="Online Teks">Online Teks</option>
+                                <option {{old('type') == 'Upload File' ? 'selected' : ''}} value="Upload File">Upload File</option>
+                                <option {{old('type') == 'Keduanya' ? 'selected' : ''}} value="Keduanya">Keduanya</option>
+                            @else
+                                <option {{$assignment->type == 'Online Teks' ? 'selected' : ''}} value="Online Teks">Online Teks</option>
+                                <option {{$assignment->type == 'Upload File' ? 'selected' : ''}} value="Upload File">Upload File</option>
+                                <option {{$assignment->type == 'Keduanya' ? 'selected' : ''}} value="Keduanya">Keduanya</option>
+                            @endif
                         </select>
                     </div>
                     <div class="formel flex-row">
                         <div class="formel" id="input-date">
-                            @if (old('release') == null)
-                                <input type="text" onfocus="(this.type='datetime-local')" name="release" id="release" placeholder="Tanggal dibuka" min="{{str_replace(' ','T', \Carbon\Carbon::now()->format('Y-m-d H:i'))}}">
+                            @if (old('release') == null and $assignment->release == null)
+                                <input type="text" onfocus="(this.type='datetime-local')" name="release" id="release" placeholder="Tanggal dibuka">
                             @else
-                                <input type="datetime-local" name="release" id="release" placeholder="Tanggal dibuka" value="{{old('release')}}" min="{{str_replace(' ','T', \Carbon\Carbon::now()->format('Y-m-d H:i'))}}">
+                                <input type="datetime-local" name="release" id="release" placeholder="Tanggal dibuka" value="{{old('release') != null ? old('release') : str_replace(' ','T', $assignment->release)}}">
                             @endif
                         </div>
                         <div class="formel" id="input-date">
-                            @if (old('deadline') == null)
-                                <input type="text" onfocus="(this.type='datetime-local')" name="deadline" id="deadline" placeholder="Tanggal ditutup" min="{{str_replace(' ','T', \Carbon\Carbon::now()->format('Y-m-d H:i'))}}">
+                            @if (old('deadline') == null and $assignment->release == null)
+                                <input type="text" onfocus="(this.type='datetime-local')" name="deadline" id="deadline" placeholder="Tanggal ditutup">
                             @else
-                                <input type="datetime-local" name="deadline" id="deadline" placeholder="Tanggal ditutup" value="{{old('deadline')}}" min="{{str_replace(' ','T', \Carbon\Carbon::now()->format('Y-m-d H:i'))}}">
+                                <input type="datetime-local" name="deadline" id="deadline" placeholder="Tanggal ditutup" value="{{old('deadline') != null ? old('deadline') : str_replace(' ','T', $assignment->deadline)}}">
                             @endif
                         </div>
                     </div>
                     <div class="formel" id="input-edit">
-                        <textarea name="description" id="description" placeholder="Deskripsi tugas" cols="30" rows="10">{{old('description')}}</textarea>
+                        <textarea name="description" id="description" placeholder="Deskripsi tugas" cols="30" rows="10">{{old('description') != null ? old('description') : $assignment->description}}</textarea>
                     </div>
                 </div>
                 <div class="formel small-btn-submit">
-                    <button type="submit" class="poppins">Buat Tugas</button>
+                    <button type="submit" class="poppins">Simpan</button>
                 </div>
             </form>
             <div class="container-illust">

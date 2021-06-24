@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class EmployeeMiddleware
+class TenDikMiddleware
 {
     /**
      * Handle an incoming request.
@@ -17,7 +17,7 @@ class EmployeeMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::user()->status != "employee") {
+        if (Auth::user()->employee->status != "Tenaga Didik") {
             /*
             silahkan modifikasi pada bagian ini
             apa yang ingin kamu lakukan jika rolenya tidak sesuai

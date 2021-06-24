@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Room;
 use App\Models\Employee;
+use App\Models\Assignment;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
 
@@ -109,15 +111,37 @@ class RoomController extends Controller
         $teacher = Employee::where('nip', $room->teacher_id)->get()->first();
         $salary = "Rp " . number_format($teacher->salary,0,',','.');
         $hasStudent = count($room->student) >= 1;
-        // Return view
-        return view('admin.room.detail', compact('room', 'teacher', 'salary', 'hasStudent'));
+        if (Auth::user()->status == 'admin') {
+            // Return view
+            return view('admin.room.detail', compact('room', 'teacher', 'salary', 'hasStudent'));
+        } else {
+            // Additional variable
+            $task = Assignment::where('room_id', $room->id)->orderBy('release', 'asc')->get();
+            $hasTask = count($task) >= 1;
+            // Return view
+            return view('employee.room.detail', compact('room', 'teacher', 'salary', 'hasStudent', 'task', 'hasTask'));
+        }
     }
 
     public function index() {
-        // Get data from database
-        $room = Room::all();
-        $hasTeacher = count(Employee::where('status', 'Tenaga Didik')->get()) >= 1;
-        // Return view
-        return view('admin.room.index', compact('room', 'hasTeacher'));
+        if (Auth::user()->status == 'admin') {
+            // Get data from database
+            $room = Room::all();
+            $hasTeacher = count(Employee::where('status', 'Tenaga Didik')->get()) >= 1;
+            // Return view
+            return view('admin.room.index', compact('room', 'hasTeacher'));
+        } else if (Auth::user()->status == 'employee') {
+            if (Auth::user()->employee->status == 'Tenaga Didik') {
+                // Get data from database
+                $room = Room::where('teacher_id', Auth::user()->username)->orderBy('name', 'asc')->get();
+            } else {
+                // Get data from database
+                $room = Room::orderBy('name', 'asc')->get();
+            }
+            // Additional variable
+            $hasRoom = count($room) >= 1;
+            // Return view
+            return view('employee.room.index', compact('room', 'hasRoom'));
+        }
     }
 }

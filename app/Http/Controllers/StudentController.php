@@ -171,4 +171,13 @@ class StudentController extends Controller
             return redirect()->route('dashboard');
         }
     }
+
+    public function detail(Student $student) {
+        if (Auth::user()->status == 'employee') {
+            // Return view
+            return view('employee.student.detail', compact('student'));
+        } else {
+            # code...
+        }
+    }
 }

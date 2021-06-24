@@ -162,6 +162,16 @@ return [
         'name' => [
             'required' => 'Silahkan isi nama terlebih dahulu!',
         ],
+        'release' => [
+            'required' => 'Silahkan isi tanggal tugas dibuka terlebih dahulu!',
+            'data'     => 'Nilai input pada tanggal dibuka wajib berupa waktu atau date!',
+            'after'    => 'Nilai input pada tanggal dibuka wajib melebihi waktu saat ini!',
+        ],
+        'deadline' => [
+            'required' => 'Silahkan isi tanggal tugas ditutup terlebih dahulu!',
+            'data'     => 'Nilai input pada tanggal ditutup wajib berupa waktu atau date!',
+            'after'    => 'Nilai input pada tanggal ditutup wajib melebihi waktu saat tugas dibuka!',
+        ],
     ],
 
     /*

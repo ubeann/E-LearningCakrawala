@@ -181,7 +181,7 @@ class EmployeeController extends Controller
         Session::flash('success', 'Akun employee dengan nama "' . ($request->input('lname') == null ? $request->input('fname') : $request->input('fname') . ' ' . $request->input('lname')) . '" berhasil diedit.');
         return redirect()->route('dashboard');
     }
-
+    
     public function delete(User $user) {
         // Validate Account
         if (Auth::user()->id == $user->id and $user->status == 'employee') {

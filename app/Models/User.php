@@ -41,24 +41,6 @@ class User extends Authenticatable
         return $this->hasOne(Employee::class);
     }
 
-    // public function room() {
-    //     return $this->hasOneThrough(
-    //         Room::class,
-    //         Employee::class,
-    //         'nip',
-    //         'teacher_id',
-    //     );
-    // }
-
-    // public function lesson() {
-    //     return $this->hasManyThrough(
-    //         Room::class,
-    //         Employee::class,
-    //         'nip',
-    //         'teacher_id',
-    //     );
-    // }
-
     /**
      * The attributes that should be cast to native types.
      *
