@@ -33,8 +33,4 @@ class Employee extends Model
     public function room() {
         return $this->hasOne(Room::class);
     }
-
-    public function lesson() {
-        return $this->hasMany(Lesson::class);
-    }
 }

@@ -34,10 +34,10 @@ class Student extends Model
     }
 
     public function grade() {
-        return $this->hasMany(Room::class);
+        return $this->hasMany(Grade::class, 'nis', 'nis');
     }
     
     public function submission() {
-        return $this->hasMany(Submission::class);
+        return $this->hasMany(Submission::class, 'nis', 'nis');
     }
 }

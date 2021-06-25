@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Room;
 use App\Models\Grade;
 use App\Models\Student;
 use App\Models\Assignment;
+use App\Models\Submission;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 class GradeController extends Controller
@@ -44,5 +47,23 @@ class GradeController extends Controller
         // Return view
         Session::flash('success', 'Nilai siswa"' . $student->name . '" berhasil diubah menjadi ' . $request->input('mark') . '.');
         return redirect()->route('taskDetail', $assignment->id);
+    }
+
+    public function index() {
+        // Get data from database
+        $hasRoom = count(Room::where('id', Auth::user()->student->room->id)->get()) >= 1;
+        $mark = Grade::where('nis', Auth::user()->username)->orderBy('updated_at', 'desc')->get();
+        $rankMark = 0;
+        $rankID = 0;
+        foreach (Auth::user()->student->room->student as $data) {
+            if ($rankMark < $data->grade->avg('mark')) {
+                $rankMark = $data->grade->avg('mark');
+                $rankID = $data->id;
+            }
+        }
+        $hasRank = $rankID != 0;
+        $ranker = Student::where('id', $rankID)->first(); 
+        // View
+        return view('student.grade.index', compact('hasRoom', 'mark','ranker', 'hasRank', 'rankMark'));
     }
 }

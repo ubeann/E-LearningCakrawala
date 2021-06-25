@@ -19,7 +19,7 @@
             <div class="flex-column box-container">
                 <div class="flex-column container-preview" style="border-radius: 5px;border: 1px solid #DDDDDD; padding-bottom:10px; gap:5px;">
                     <img src="{{$student->photo != null ? asset('img/photo/' . $student->photo) : asset('img/photo/default-student.jpg')}}" alt="foto {{$student->name}}" style="border-bottom-left-radius: 0;border-bottom-right-radius: 0;">
-                    <h2 class="poppins">{{$student->name}}</h2>
+                    <h2 class="poppins">{{$student->name}} {{$student->nis == Auth::user()->username ? '(Saya)' : ''}}</h2>
                     <p class="montserrat">{{$student->gender}}</p>
                 </div>
                 @if ($student->photo == null)
@@ -29,6 +29,13 @@
             <div class="flex-column container-input">
                 @csrf
                 <h2 class="poppins">Biodata Diri</h2>
+                <div class="flex-row container-question">
+                    <span class="montserrat question">NIS</span>
+                    <span class="montserrat question-mark">:</span>
+                    <div class="formel" id="input-star">
+                        <input type="text" name="name" id="name" placeholder="Tidak ada NIS" value="{{$student->nis}}" readonly>
+                    </div>
+                </div>
                 <div class="flex-row container-question">
                     <span class="montserrat question">Nama Lengkap</span>
                     <span class="montserrat question-mark">:</span>

@@ -22,8 +22,8 @@ class Room extends Model
         'photo',
     ];
 
-    public function teacher() {
-        return $this->belongsTo(Employee::class);
+    public function employee() {
+        return $this->belongsTo(Employee::class, 'teacher_id', 'nip');
     }
 
     public function student() {

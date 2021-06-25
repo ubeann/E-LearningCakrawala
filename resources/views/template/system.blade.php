@@ -30,7 +30,7 @@
                 <svg height="2" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M0 1H1000" stroke="#FBFEFD" stroke-opacity="0.5"/>
                 </svg>
-                <a href="{{(Auth::user()->status == 'admin' or Auth::user()->status == 'employee') ? route('roomIndex') : ''}}" class="flex-row poppins @yield('kelas')" id="j-center">
+                <a href="{{route('roomIndex')}}" class="flex-row poppins @yield('kelas')" id="j-center">
                     <img src="{{asset('img/icon/navbar-kelas.svg')}}">
                     <span class="animate" style="display: none;">Kelas</span>
                 </a>
@@ -40,7 +40,7 @@
                         <span class="animate" style="display: none;">Tugas</span>
                     </a>
                     @if (Auth::user()->status == 'student')
-                        <a href="nilai" class="flex-row poppins @yield('nilai')" id="j-center">
+                        <a href="{{route('grade')}}" class="flex-row poppins @yield('nilai')" id="j-center">
                             <img src="{{asset('img/icon/navbar-nilai.svg')}}">
                             <span class="animate" style="display: none;">Nilai</span>
                         </a>

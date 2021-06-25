@@ -6,6 +6,7 @@ use App\Models\Room;
 use App\Models\User;
 use App\Models\Student;
 use App\Models\Employee;
+use App\Models\Assignment;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -57,8 +58,16 @@ class PagesController extends Controller
             ]);
         // Student access
         } else {
+            // Get data from database
+            $room = Room::where('id', Auth::user()->student->room_id)->get();
+            $hasRoom = count($room) >= 1;
+            $student = Student::where('room_id', $room->first()->id)->orderBy('nis', 'asc')->get();
+            $assignment = Assignment::where('room_id', $room->first()->id)->orderBy('deadline', 'asc')->get();
             // View
             return view('student.dashboard', [
+                'hasRoom'   => $hasRoom,
+                'student'   => $student,
+                'assignment'=> $assignment,
             ]);
         }
     }
@@ -75,7 +84,7 @@ class PagesController extends Controller
         // Student access
         } else {
             // View
-            return view('student.dashboard');
+            return view('student.setting');
         }
     }
 
@@ -136,7 +145,41 @@ class PagesController extends Controller
 
         // Student access
         } else if (Auth::user()->status == 'student') {
-            
+            // Validation input
+            $request->validate([
+                'name'      => 'required',
+                'gender'    => 'required',
+                'birthday'  => 'required',
+                'address'   => 'required',
+                'photo'     => 'mimes:jpg,png,jpeg|max:2048',
+            ]);
+            // Update data to database (Employee table)
+            Student::where('id', Auth::user()->student->id)
+                ->update([
+                    'name'      => $request->input('name'),
+                    'gender'    => $request->input('gender'), 
+                    'birthday'  => $request->input('birthday'), 
+                    'address'   => $request->input('address'), 
+                ]);
+            // Image proccessing
+            if ($request->photo != null) {
+                if (Auth::user()->student->photo != null) {
+                    File::delete(public_path('img/photo/' . Auth::user()->student->photo));
+                }
+                $imageName = time() . '-' . $request->input('name') . '.' . $request->photo->extension();
+                $imageName = Str::of($imageName)->replace(' ', '');
+                $request->photo->move(public_path('img/photo'), $imageName);
+                Student::where('id', Auth::user()->student->id)
+                    ->update(['photo' => $imageName]);
+            }
+            // Change password
+            if ($request->input('password') != null) {
+                User::where('id', Auth::user()->student->user_id)
+                    ->update(['password' => Hash::make($request->input('password'))]);
+            }
+            // Return view
+            Session::flash('success', 'Akun "' . $request->input('name') . '" berhasil diedit.');
+            return redirect()->route('setting');
         }
     }
 

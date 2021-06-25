@@ -177,7 +177,8 @@ class StudentController extends Controller
             // Return view
             return view('employee.student.detail', compact('student'));
         } else {
-            # code...
+            // Return view
+            return view('student.detail', compact('student'));
         }
     }
 }

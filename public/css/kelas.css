@@ -30,8 +30,9 @@
     min-width: 275px;
     height: 70px;
     /* layout */
-    margin-top: -35px;
+    transform: translateY(-50%);
     gap: 10px;
+    justify-content: center;
     box-sizing: border-box;
     padding: 10px 20px;
     /* style */
@@ -65,7 +66,7 @@
     align-items: flex-start;
     justify-content: space-between;
     gap: 35px;
-    padding: 20px 75px;
+    padding: 0 75px;
 }
 
 .content-group {
@@ -78,7 +79,7 @@
     gap: 20px;
 }
 
-.content-description, .content-student {
+.content-description, .content-student, .content-submission {
     /* size */
     width: 100%;
     height: max-content;
@@ -88,9 +89,10 @@
     gap: 5px;
 }
 
-.content-description h2, .title-teacher h2, .content-student h2 {
+.content-description h2, .title-teacher h2, .content-student h2, .content-submission h2 {
     /* text style */
     font-size: 28px;
+    font-weight: 600;
     color: #212121;
 }
 
@@ -160,6 +162,142 @@
     object-fit: cover;
 }
 
+.submission-list {
+    /* size */
+    width: 100%;
+    height: max-content;
+    /* layout */
+    gap: 0;
+    /* style */
+    border-radius: 5px;
+    background: rgba(224, 87, 128, 0.15);
+    border: 1px solid #E05780;
+}
+
+.submission-detail {
+    /* size */
+    width: 100%;
+    height: max-content;
+    /* layout */
+    justify-content: normal;
+    box-sizing: border-box;
+    padding: 0 20px;
+}
+
+.submission-detail h3, .submission-detail p {
+    /* size */
+    margin: 0;
+    /* layout */
+    box-sizing: border-box;
+    padding: 10px 0;
+    /* text style */
+    font-style: normal;
+    text-align: center;
+    font-size: 18px;
+    color: #212121;
+}
+
+.submission-detail h3 {
+    /* size */
+    width: 195px;
+    /* text style */
+    text-align: left;
+    font-weight: 600;
+}
+
+.submission-detail p {
+    /* text style */
+    font-weight: 400;
+    /* layout */
+    box-sizing: border-box;
+    padding-left: 10px;
+    /* style */
+    border-left: 1px solid #E05780;
+}
+
+.submission-button {
+    /* size */
+    width: 100%;
+    height: max-content;
+    /* layout */
+    margin-top: 15px;
+    justify-content: center;
+    gap: 10px;
+}
+
+.submission-button button, .submission-button a {
+    /* size */
+    width: max-content;
+    height: max-content;
+    /* design */
+    box-sizing: border-box;
+    padding: 8px 16px;
+    border-radius: 5px;
+    /* text */
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    letter-spacing: 1px;
+    /* addition */
+    cursor: pointer;
+    transition: 0.35s;
+}
+
+.submit-success {
+    /* design */
+    color: #FBFEFD;
+    background: rgba(82, 183, 136, 0.75);
+    border: 1px solid rgba(82, 183, 136, 0.75);
+}
+
+.submit-success:hover {
+    /* design */
+    background: rgba(82, 183, 136, 1);
+    border-color: rgba(82, 183, 136, 1);
+}
+
+.submit-edit {
+    /* design */
+    color: rgba(15, 36, 26, 0.75);
+    background: rgba(249, 220, 92, 0.75);
+    border: 1px solid rgba(249, 220, 92, 0.75);
+}
+
+.submit-edit:hover {
+    /* design */
+    color: rgba(15, 36, 26, 1);
+    background: rgba(249, 220, 92, 1);
+    border-color: rgba(249, 220, 92, 1);
+}
+
+.submit-danger {
+    /* design */
+    color: #FBFEFD;
+    background: rgba(224, 87, 128, 0.75);
+    border: 1px solid rgba(224, 87, 128, 0.75);
+}
+
+.submit-danger:hover {
+    /* design */
+    background: rgba(224, 87, 128, 1);
+    border-color: rgba(224, 87, 128, 1);
+}
+
+.submission-button button:hover {
+    /* design */
+    box-shadow: 0px 6px 10px rgba(33, 33, 33, 0.25);
+}
+
+.small-btn-submit {
+    /* size */
+    max-width: 275px;
+}
+
+.medium-btn-submit {
+    /* size */
+    max-width: 400px;
+}
+
 @media only screen and (max-width: 1024px) {
     .head-text {
         /* size */
@@ -167,8 +305,12 @@
         min-width: auto;
         max-width: 275px;
         /* layout */
-        flex-wrap: wrap;
-        margin-top: -100px;
+        margin-bottom: -35px;
+    }
+
+    .head-content .flex-row {
+        /* layout */
+        flex-direction: column!important;
     }
 
     .head-text h2 {
@@ -178,7 +320,7 @@
 
     .detail-content {
         /* layout */
-        padding: 20px 15px;
+        padding: 0 15px;
         flex-wrap: wrap-reverse;
     }
 }

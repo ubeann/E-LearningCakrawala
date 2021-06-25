@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Room;
+use App\Models\Student;
 use App\Models\Employee;
 use App\Models\Assignment;
 use Illuminate\Support\Str;
@@ -142,6 +143,19 @@ class RoomController extends Controller
             $hasRoom = count($room) >= 1;
             // Return view
             return view('employee.room.index', compact('room', 'hasRoom'));
+        } else {
+            // Get data from database
+            $room = Room::where('id', Auth::user()->student->room_id)->get();
+            $hasRoom = count($room) >= 1;
+            $student = Student::where('room_id', $room->first()->id)->orderBy('nis', 'asc')->get();
+            $assignment = Assignment::where('room_id', $room->first()->id)->orderBy('deadline', 'desc')->get();
+            // Return view
+            return view('student.room.index', [
+                'room'      => $room->first(),
+                'hasRoom'   => $hasRoom,
+                'student'   => $student,
+                'assignment'=> $assignment,
+            ]);
         }
     }
 }

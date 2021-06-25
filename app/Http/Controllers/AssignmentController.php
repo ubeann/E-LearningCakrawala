@@ -102,19 +102,34 @@ class AssignmentController extends Controller
             // Return view
             return view('employee.tasks.index', compact('hasRoom', 'task', 'roomKey'));
         } else {
-            // 
+            // Get data from database
+            $room = Room::where('id', Auth::user()->student->room->id)->get();
+            $hasRoom = count($room) >= 1;
+            $assignment = Assignment::where('room_id', $room->first()->id)->orderBy('deadline', 'asc')->get();
+            // Return view
+            return view('student.tasks.index', compact('hasRoom', 'assignment'));
         }
     }
     
     public function detail(Assignment $assignment) {
         // Get data from database
         $grade = Grade::where('assignment_id', $assignment->id)->whereNotNull('mark')->orderBy('mark','desc')->get();
-        $submission = Submission::where('assignment_id', $assignment->id)->get();
         $rank = $grade->first();
         $hasRank = $rank != null;
         $ranker = $hasRank ? Student::where('nis', $rank->nis)->first() : null;
-        $student = Student::where('room_id', $assignment->room->id)->orderBy('name', 'asc')->get();
-        // Return view
-        return view('employee.tasks.detail', compact('assignment', 'rank', 'hasRank', 'ranker', 'student', 'grade', 'submission'));
+        // Employee access
+        if (Auth::user()->status == 'employee') {
+            // Get data from database
+            $submission = Submission::where('assignment_id', $assignment->id)->get();
+            $student = Student::where('room_id', $assignment->room->id)->orderBy('name', 'asc')->get();
+            // Return view
+            return view('employee.tasks.detail', compact('assignment', 'rank', 'hasRank', 'ranker', 'student', 'grade', 'submission'));
+        // Student access
+        } else {
+            // Get data from database
+            $submission = Submission::where('assignment_id', $assignment->id)->where('nis', Auth::user()->username)->get();
+            // Return view
+            return view('student.tasks.detail', compact('assignment', 'rank', 'hasRank', 'ranker', 'grade', 'submission'));
+        }        
     }
 }

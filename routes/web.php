@@ -9,6 +9,7 @@ use App\Http\Controllers\PagesController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\AssignmentController;
+use App\Http\Controllers\SubmissionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -99,8 +100,14 @@ Route::group(['middleware' => 'auth'], function() {
 
     // Student access
     Route::group(['middleware' => 'student'], function() {
-        // Route::get('/dashboard', [StudentPagesController::class, 'index'])->name('dashboard');
-        // Route::get('/kelas', [PagesController::class, 'kelas']); // move in new controller
+        // Grade page
+        Route::get('nilai', [GradeController::class, 'index'])->name('grade');
+        // CRUD Submission
+        Route::prefix('tugas')->group(function() {
+            Route::post('{assignment}', [SubmissionController::class, 'create'])->name('submission');
+            Route::patch('{assignment}', [SubmissionController::class, 'update'])->name('submissionEdit');
+            Route::delete('{assignment}/delete', [SubmissionController::class, 'delete'])->name('submissionDelete');
+        });
     });
    
     // Admin and Employee access

@@ -159,6 +159,10 @@ return [
             'required' => 'Silahkan isi deskripsi terlebih dahulu!',
             'max'      => 'Deskripsi maksimal dalam 255 karakter!',
         ],
+        'file' => [
+            'required' => 'Silahkan upload jawaban file terlebih dahulu!',
+            'max'      => 'File jawaban maksimal 10MB!',
+        ],
         'name' => [
             'required' => 'Silahkan isi nama terlebih dahulu!',
         ],
