@@ -67,6 +67,5 @@ class Kernel extends HttpKernel
         'tendik' => \App\Http\Middleware\TenDikMiddleware::class,
         'adminEmployee' => \App\Http\Middleware\AdminEmployeeMiddleware::class,
         'employeeStudent' => \App\Http\Middleware\EmployeeStudentMiddleware::class,
-        'teacherStudent' => \App\Http\Middleware\TeacherStudentMiddleware::class,
     ];
 }

@@ -115,10 +115,6 @@ Route::group(['middleware' => 'auth'], function() {
         Route::get('kelas/{room}', [RoomController::class, 'detail'])->name('roomDetail');
     });
 
-    // Teacher (Tenaga Didik) and Student access
-    // Route::group(['middleware' => 'teacherStudent'], function() {
-    // });
-
     // Employee and Student access
     Route::group(['middleware' => 'employeeStudent'], function() {
 

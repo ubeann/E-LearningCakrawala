@@ -27,11 +27,7 @@ class SubmissionController extends Controller
             // Validate
             $request->validate(['file' => 'required|max:10000']);
             // File proccessing
-            $file = Submission::where('nis', Auth::user()->username)->where('assignment_id', $assignment->id)->first()->file;
             if ($request->file != null) {
-                if ($file != null) {
-                    File::delete(public_path('submission/' . $file));
-                }
                 $fileName = time() . '-' . Auth::user()->username . '-' . Auth::user()->student->name . '.' . $request->file->extension();
                 $fileName = Str::of($fileName)->replace(' ', '');
                 $request->file->move(public_path('submission'), $fileName);
@@ -49,11 +45,7 @@ class SubmissionController extends Controller
                 'file'          => 'required|max:10000',
             ]);
             // File proccessing
-            $file = Submission::where('nis', Auth::user()->username)->where('assignment_id', $assignment->id)->first()->file;
             if ($request->file != null) {
-                if ($file != null) {
-                    File::delete(public_path('submission/' . $file));
-                }
                 $fileName = time() . '-' . Auth::user()->username . '-' . Auth::user()->student->name . '.' . $request->file->extension();
                 $fileName = Str::of($fileName)->replace(' ', '');
                 $request->file->move(public_path('submission'), $fileName);

@@ -47,7 +47,7 @@
                         <button type="button" class="btn btn-primary" style="opacity: 0; cursor:default;">Primary</button>
                     </div>
                     @if (count($assignment) >= 1)
-                        <div class="row row-cols-1 row-cols-md-3 g-4">
+                        <div class="row row-cols-1 row-cols-md-3 g-4" style="width: 100%;">
                             @foreach ($assignment as $task)
                                 <div class="col">
                                     <a class="card h-100 hover-shadow" href="{{route('taskDetail', $task->id)}}" style="text-decoration: none; color: #212121;">
