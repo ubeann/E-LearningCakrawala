@@ -27,6 +27,16 @@
         input[type='number'] {
             -moz-appearance: textfield;
         }
+
+        .modal-body a {
+            /* text style */
+            text-decoration: none;
+        }
+
+        .modal-body a:hover {
+            /* text style */
+            text-decoration: underline;
+        }
     </style>
 @endsection
 
@@ -213,15 +223,6 @@
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                @if ($submission->first()->description != null)
-                                                    <p style="text-align: justify">{{$submission->first()->description}}</p>
-                                                @endif
-                                                @if ($submission->first()->file != null)
-                                                    <a style="text-align: justify">nothing</a>
-                                                @endif
-                                                @if ($submission->first()->description == null and $submission->first()->file == null)
-                                                    <p>Tidak ada jawaban</p>
-                                                @endif
                                                 <p>
                                                     <b>Nilai : </b>
                                                     @if (count($assignment->grade->where('nis', Auth::user()->username)) >= 1)
@@ -232,14 +233,24 @@
                                                         Tidak dinilai
                                                     @endif
                                                 </p>
-                                                <p style="text-align: justify">
-                                                    <b>Keterangan : </b>
-                                                    @if ($assignment->grade->where('nis', Auth::user()->username)->first()->description != null)
+                                                @if ($assignment->grade->where('nis', Auth::user()->username)->first()->description != null)
+                                                    <p style="text-align: justify">
+                                                        <b>Keterangan : </b>
                                                         {{$assignment->grade->where('nis', Auth::user()->username)->first()->description}}
-                                                    @else
-                                                        Tidak ada keterangan
-                                                    @endif
-                                                </p>
+                                                    </p>
+                                                @endif
+                                                @if ($submission->first()->file != null)
+                                                    <p>
+                                                        <b>File Upload:</b>
+                                                        <a href="{{route('submissionDownload', $submission->first()->id)}}" style="text-align: justify">{{$submission->first()->file}}</a>
+                                                    </p>
+                                                @endif
+                                                @if ($submission->first()->description != null)
+                                                    <p style="text-align: justify"><b>Jawaban:</b> {{$submission->first()->description}}</p>
+                                                @endif
+                                                @if ($submission->first()->description == null and $submission->first()->file == null)
+                                                    <p><b>Jawaban:</b> Tidak ada jawaban</p>
+                                                @endif
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
@@ -264,10 +275,10 @@
                                                         <textarea name="description" class="form-control" id="description" rows="8" placeholder="Isi deskripsi jawaban sesuai dengan soal yang diberikan dan diharapkan tetap menjaga kejujuran!">{{old('description') != null ? old('description') : ''}}</textarea>
                                                     </div>
                                                 @elseif ($assignment->type == 'Upload File')
-                                                <div class="mb-3">
-                                                    <label for="file" class="col-form-label">Upload file:</label>
-                                                    <input class="form-control" name="file" type="file" id="file">
-                                                </div>
+                                                    <div class="mb-3">
+                                                        <label for="file" class="col-form-label">Upload file:</label>
+                                                        <input class="form-control" name="file" type="file" id="file">
+                                                    </div>
                                                 @else
                                                     <div class="mb-3">
                                                         <label for="file" class="col-form-label">Upload file:</label>
@@ -281,7 +292,7 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                                                <button type="submit" class="btn btn-primary" style="background-color: #52B788; border-color: #52B788;font-weight: 400;color: #FBFEFD;">Kirim</button>
+                                                <button type="submit" value="submit" class="btn btn-primary" style="background-color: #52B788; border-color: #52B788;font-weight: 400;color: #FBFEFD;">Kirim</button>
                                             </div>
                                         </form>
                                     </div>
@@ -300,7 +311,7 @@
                                                 @method('patch')
                                                 @if ($submission->first()->file != null)
                                                     <b>File Lama:</b>
-                                                    <a style="text-align: justify">nothing</a>
+                                                    <a href="{{route('submissionDownload', $submission->first()->id)}}" style="text-align: justify">{{$submission->first()->file}}</a>
                                                 @endif
                                                 @if ($assignment->type == 'Online Teks')
                                                     <div class="mb-3">
@@ -348,15 +359,22 @@
                                             </div>
                                             <div class="modal-body">
                                                 <div class="mb-3">
-                                                    <b>Jawaban:</b>
-                                                    @if ($submission->first()->description != null)
-                                                        <p style="text-align: justify">{{$submission->first()->description}}</p>
+                                                    @if ($assignment->type == 'Online Teks' or $assignment->type == 'Keduanya')
+                                                        <b>Jawaban:</b>
+                                                        @if ($submission->first()->description != null)
+                                                            <p style="text-align: justify">{{$submission->first()->description}}</p>
+                                                        @else
+                                                            <p>Tidak ada deskripsi jawaban.</p>
+                                                        @endif
                                                     @endif
-                                                    @if ($submission->first()->file != null)
-                                                        <a style="text-align: justify">nothing</a>
-                                                    @endif
-                                                    @if ($submission->first()->description == null and $submission->first()->file == null)
-                                                        <p>Tidak ada jawaban</p>
+                                                    @if ($assignment->type == 'Upload File' or $assignment->type == 'Keduanya')
+                                                        <p><b>File Upload:</b>
+                                                        @if ($submission->first()->file != null)
+                                                        <a href="{{route('submissionDownload', $submission->first()->id)}}" style="text-align: justify">{{$submission->first()->file}}</a>
+                                                        @else
+                                                            Tidak file upload jawaban.
+                                                        @endif
+                                                        </p>
                                                     @endif
                                                     <b>Catatan:</b>
                                                     <p style="text-align: justify">Berhati-hati sebelum menghapus jawaban pada sistem! Serta jangan lupa untuk mengirim jawabanmu yang baru apabila menghapus jawaban.</p>

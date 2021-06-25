@@ -9,6 +9,7 @@ use App\Models\Employee;
 use App\Models\Assignment;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
@@ -25,8 +26,8 @@ class PagesController extends Controller
             $hasRoom = count(Room::all()) >= 1;
             // Serve data variable
             $admin = User::where('status','admin')->orderBy('username', 'asc')->get();
-            $employee = User::where('status','employee')->orderBy('username', 'asc')->get();
-            $student = User::where('status','student')->orderBy('username', 'asc')->get();
+            $employee = Employee::orderBy('nip', 'asc')->get();
+            $student = Student::orderBy('nis', 'asc')->get();
             $room = Room::all();
             // View
             return view('admin.dashboard', [

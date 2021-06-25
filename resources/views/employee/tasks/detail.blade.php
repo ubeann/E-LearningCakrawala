@@ -27,6 +27,15 @@
         input[type='number'] {
             -moz-appearance: textfield;
         }
+        .modal-body a {
+            /* text style */
+            text-decoration: none;
+        }
+
+        .modal-body a:hover {
+            /* text style */
+            text-decoration: underline;
+        }
     </style>
 @endsection
 
@@ -138,10 +147,22 @@
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    @if ($submission->where('nis', $data->nis)->first()->description != null)
-                                                        <p style="text-align: justify">{{$submission->where('nis', $data->nis)->first()->description}}</p>
-                                                    @else
-                                                        <p>Tidak ada jawaban</p>
+                                                    @if ($assignment->type == 'Upload File' or $assignment->type == 'Keduanya')
+                                                        <p><b>File Upload:</b>
+                                                        @if ($submission->first()->file != null)
+                                                        <a href="{{route('submissionDownload', $submission->first()->id)}}" style="text-align: justify">{{$submission->first()->file}}</a>
+                                                        @else
+                                                            Tidak file upload jawaban.
+                                                        @endif
+                                                        </p>
+                                                    @endif
+                                                    @if ($assignment->type == 'Online Teks' or $assignment->type == 'Keduanya')
+                                                        <b>Jawaban:</b>
+                                                        @if ($submission->first()->description != null)
+                                                            <p style="text-align: justify">{{$submission->first()->description}}</p>
+                                                        @else
+                                                            <p>Tidak ada deskripsi jawaban.</p>
+                                                        @endif
                                                     @endif
                                                 </div>
                                                 <div class="modal-footer">

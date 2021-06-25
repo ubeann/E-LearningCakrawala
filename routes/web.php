@@ -126,5 +126,8 @@ Route::group(['middleware' => 'auth'], function() {
 
         // Profile Student page
         Route::get('student/{student}', [StudentController::class, 'detail'])->name('studentDetail');
+
+        // Download submission
+        Route::get('submission/{submission}', [SubmissionController::class, 'download'])->name('submissionDownload');
     });
 });

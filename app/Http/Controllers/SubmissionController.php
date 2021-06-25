@@ -28,7 +28,7 @@ class SubmissionController extends Controller
             $request->validate(['file' => 'required|max:10000']);
             // File proccessing
             if ($request->file != null) {
-                $fileName = time() . '-' . Auth::user()->username . '-' . Auth::user()->student->name . '.' . $request->file->extension();
+                $fileName = time() . '-' . Auth::user()->username . '-' . Auth::user()->student->name . '.' . $request->file->getClientOriginalExtension();
                 $fileName = Str::of($fileName)->replace(' ', '');
                 $request->file->move(public_path('submission'), $fileName);
             }
@@ -46,7 +46,7 @@ class SubmissionController extends Controller
             ]);
             // File proccessing
             if ($request->file != null) {
-                $fileName = time() . '-' . Auth::user()->username . '-' . Auth::user()->student->name . '.' . $request->file->extension();
+                $fileName = time() . '-' . Auth::user()->username . '-' . Auth::user()->student->name . '.' . $request->file->getClientOriginalExtension();
                 $fileName = Str::of($fileName)->replace(' ', '');
                 $request->file->move(public_path('submission'), $fileName);
             }
@@ -81,7 +81,7 @@ class SubmissionController extends Controller
                 if ($file != null) {
                     File::delete(public_path('submission/' . $file));
                 }
-                $fileName = time() . '-' . Auth::user()->username . '-' . Auth::user()->student->name . '.' . $request->file->extension();
+                $fileName = time() . '-' . Auth::user()->username . '-' . Auth::user()->student->name . '.' . $request->file->getClientOriginalExtension();
                 $fileName = Str::of($fileName)->replace(' ', '');
                 $request->file->move(public_path('submission'), $fileName);
             }
@@ -101,7 +101,7 @@ class SubmissionController extends Controller
                 if ($file != null) {
                     File::delete(public_path('submission/' . $file));
                 }
-                $fileName = time() . '-' . Auth::user()->username . '-' . Auth::user()->student->name . '.' . $request->file->extension();
+                $fileName = time() . '-' . Auth::user()->username . '-' . Auth::user()->student->name . '.' . $request->file->getClientOriginalExtension();
                 $fileName = Str::of($fileName)->replace(' ', '');
                 $request->file->move(public_path('submission'), $fileName);
             }
@@ -119,6 +119,11 @@ class SubmissionController extends Controller
     }
 
     public function delete(Assignment $assignment) {
+        // Delete file
+        $file = Submission::where('nis', Auth::user()->username)->where('assignment_id', $assignment->id)->first()->file;
+        if ($file != null) {
+            File::delete(public_path('submission/' . $file));
+        }
         // Deleted submission
         Submission::where('assignment_id', $assignment->id)
             ->where('nis', Auth::user()->username)
@@ -126,5 +131,13 @@ class SubmissionController extends Controller
         // Return view
         Session::flash('success', 'Berhasil menghapus jawaban ' . $assignment->name . ', ' . date('l, d F - H:i:s', time()) . '. Jangan lupa untuk mengupload jawabanmu yang baru :)');
         return redirect()->route('taskDetail', $assignment->id);
+    }
+
+    public function download(Submission $submission) {
+        // Check submission
+        if ($submission->file != null) {
+            // Download
+            return response()->download(public_path('submission/' . $submission->file));
+        }
     }
 }

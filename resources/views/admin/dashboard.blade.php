@@ -180,9 +180,9 @@
                         </li>
                     @forelse ($employee as $data)
                         <li class="list-item list-group-item d-flex justify-content-between align-items-center">
-                            {{'(' . $data->employee->nip . ') ' . Str::limit($data->employee->name, 16, $end='...')}}
+                            {{'(' . $data->nip . ') ' . Str::limit($data->name, 16, $end='...')}}
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end" id="button-group">
-                                <a href="{{route('employeeEdit', $data->employee->id)}}" class="btn btn-warning me-md-2" type="button">Edit</a>
+                                <a href="{{route('employeeEdit', $data->id)}}" class="btn btn-warning me-md-2" type="button">Edit</a>
                                 <form action="{{route('employeeDelete', $data->id)}}" method="POST">
                                     @csrf
                                     @method('delete')
@@ -211,9 +211,9 @@
                         </li>
                     @forelse ($student as $data)
                         <li class="list-item list-group-item d-flex justify-content-between align-items-center">
-                            {{'(' . $data->student->nis . ') ' . Str::limit($data->student->name, 16, $end='...')}}
+                            {{'(' . $data->nis . ') ' . Str::limit($data->name, 16, $end='...')}}
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end" id="button-group">
-                                <a href="{{route('studentEdit', $data->student->id)}}" class="btn btn-warning me-md-2" type="button">Edit</a>
+                                <a href="{{route('studentEdit', $data->id)}}" class="btn btn-warning me-md-2" type="button">Edit</a>
                                 <form action="{{route('studentDelete', $data->id)}}" method="POST">
                                     @csrf
                                     @method('delete')

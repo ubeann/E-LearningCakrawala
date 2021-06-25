@@ -6,6 +6,7 @@ use App\Models\Room;
 use App\Models\Student;
 use App\Models\Employee;
 use App\Models\Assignment;
+use App\Models\Submission;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -100,6 +101,14 @@ class RoomController extends Controller
     }
 
     public function delete(Room $room) {
+        // Delete whole submission including file upload
+        foreach (Assignment::where('room_id', $room->id) as $assignment) {
+            foreach (Submission::where('assignment_id', $assignment->id)->get() as $key) {
+                if ($key->file != null) {
+                    File::delete(public_path('submission/' . $key->file));
+                }
+            }
+        }
         // Delete room on database
         Room::destroy($room->id);
         // Return view
@@ -112,13 +121,13 @@ class RoomController extends Controller
         $teacher = Employee::where('nip', $room->teacher_id)->get()->first();
         $salary = "Rp " . number_format($teacher->salary,0,',','.');
         $hasStudent = count($room->student) >= 1;
+        $task = Assignment::where('room_id', $room->id)->orderBy('release', 'asc')->get();
+        $hasTask = count($task) >= 1;
+        // View by Auth
         if (Auth::user()->status == 'admin') {
             // Return view
-            return view('admin.room.detail', compact('room', 'teacher', 'salary', 'hasStudent'));
+            return view('admin.room.detail', compact('room', 'teacher', 'salary', 'hasStudent', 'task', 'hasTask'));
         } else {
-            // Additional variable
-            $task = Assignment::where('room_id', $room->id)->orderBy('release', 'asc')->get();
-            $hasTask = count($task) >= 1;
             // Return view
             return view('employee.room.detail', compact('room', 'teacher', 'salary', 'hasStudent', 'task', 'hasTask'));
         }

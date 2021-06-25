@@ -11,6 +11,7 @@ use App\Models\Submission;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
 
 class AssignmentController extends Controller
@@ -77,7 +78,13 @@ class AssignmentController extends Controller
     }
 
     public function delete(Assignment $assignment) {
-        // Deleted task
+        // Delete whole submission including file upload
+        foreach (Submission::where('assignment_id', $assignment->id)->get() as $key) {
+            if ($key->file != null) {
+                File::delete(public_path('submission/' . $key->file));
+            }
+        }
+        // Delete task
         Assignment::destroy($assignment->id);
         // Return view
         Session::flash('success', 'Tugas dengan nama "' . $assignment->name . '" telah dihapus pada kelas ' . $assignment->room->name . '.');

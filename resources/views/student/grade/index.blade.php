@@ -66,6 +66,15 @@
             border-top-right-radius: 5px;
             object-fit: cover;
         }
+        .accordion-body a {
+            /* text style */
+            text-decoration: none;
+        }
+
+        .accordion-body a:hover {
+            /* text style */
+            text-decoration: underline;
+        }
     </style>
 @endsection
 
@@ -119,7 +128,10 @@
                                                 <p style="text-align: justify">{{Auth::user()->student->submission->where('assignment_id', $data->assignment->id)->first()->description}}</p>
                                             @endif
                                             @if (Auth::user()->student->submission->where('assignment_id', $data->assignment->id)->first()->file != null)
-                                                <a style="text-align: justify">nothing</a>
+                                                <p>
+                                                    <b>File Upload:</b>
+                                                    <a href="{{route('submissionDownload', Auth::user()->student->submission->where('assignment_id', $data->assignment->id)->first()->id)}}" style="text-align: justify">{{Auth::user()->student->submission->where('assignment_id', $data->assignment->id)->first()->file}}</a>
+                                                </p>
                                             @endif
                                         </div>
                                     </div>

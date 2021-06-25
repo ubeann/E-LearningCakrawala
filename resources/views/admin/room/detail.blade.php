@@ -58,6 +58,50 @@
                         </table>
                     @endif
                 </div>
+                <div class="flex-column content-student">
+                    <div class="flex-row task-title" style="gap:10px;">
+                        <h2 class="poppins">Tugas</h2>
+                    </div>
+                    @if (!$hasTask)
+                        <div class="notif-warning flex-row montserrat">
+                            <img src="{{asset('img/icon/notif-warning.svg')}}" alt="warning image">
+                            <span>Belum ada tugas yang diberikan pada kelas {{$room->name}}! Silahkan hubungi guru <b>{{$teacher->name}}</b> untuk membuatkan tugas jika diperlukan.</span>
+                        </div>
+                    @else
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Nama</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Tipe Tugas</th>
+                                    <th scope="col">Tanggal dibuka</th>
+                                    <th scope="col">Tanggal ditutup</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($task as $data)
+                                    <tr class="{{ (time() > strtotime($data->release) and time() < strtotime($data->deadline)) ? 'table-warning' : ''}} {{ time() < strtotime($data->release) ? 'table-danger' : ''}} {{ (time() < strtotime($data->release) or (time() > strtotime($data->release) and time() < strtotime($data->deadline))) ? '' : 'table-success'}}">
+                                        <th scope="row">{{$loop->index + 1}}</th>
+                                        <td>{{$data->name}}</td>
+                                        <td>
+                                            @if (time() > strtotime($data->release) and time() < strtotime($data->deadline))
+                                                <span class="badge bg-warning text-dark">Berjalan</span>
+                                            @elseif (time() < strtotime($data->release))
+                                                <span class="badge bg-danger">Tertunda</span>
+                                            @else
+                                                <span class="badge bg-success">Selesai</span>
+                                            @endif
+                                        </td>
+                                        <td>{{$data->type}}</td>
+                                        <td>{{$data->release}}</td>
+                                        <td>{{$data->deadline}}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    @endif
+                </div>
             </div>
             <div class="flex-column title-teacher">
                 <h2 class="poppins">Pengajar</h2>
