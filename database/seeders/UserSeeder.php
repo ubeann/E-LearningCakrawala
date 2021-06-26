@@ -21,29 +21,5 @@ class UserSeeder extends Seeder
             'password' => Hash::make('password'),
             'created_at' => \Carbon\Carbon::now(),
         ]);
-        DB::table('users')->insert([
-            'username' => '002',
-            'status' => 'employee',
-            'password' => Hash::make('password'),
-            'created_at' => \Carbon\Carbon::now(),
-        ]);
-        DB::table('employees')->insert([
-            'user_id' => 2,
-            'nip' => '002',
-            'name' => 'Mohammad Hatta',
-            'created_at' => \Carbon\Carbon::now(),
-        ]);
-        DB::table('users')->insert([
-            'username' => '003',
-            'status' => 'student',
-            'password' => Hash::make('password'),
-            'created_at' => \Carbon\Carbon::now(),
-        ]);
-        DB::table('students')->insert([
-            'user_id' => 3,
-            'nis' => '003',
-            'name' => 'Rijal Rojaliii',
-            'created_at' => \Carbon\Carbon::now(),
-        ]);
     }
 }
