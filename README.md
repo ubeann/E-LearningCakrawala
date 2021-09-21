@@ -1,3 +1,16 @@
+# E-Learning Cakrawala
+
+This Cakrawala website is an e-learning platform aimed at both students and teachers. The features on this website include:
+- 3 Account Levels (Admin, Teacher, Student)
+- Class
+- Assignment
+- Ranking
+- Edit Profile
+- Friend Profiles
+I created this website to fulfill the assignment of a web programming course. The technology I use is Laravel 8 with the Nginx web server on Alibaba's ECS platform.
+
+Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
 <p align="center">
