@@ -7,6 +7,7 @@ This Cakrawala website is an e-learning platform aimed at both students and teac
 - Ranking
 - Edit Profile
 - Friend Profiles
+
 I created this website to fulfill the assignment of a web programming course. The technology I use is Laravel 8 with the Nginx web server on Alibaba's ECS platform.
 
 ## Technology
